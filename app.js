@@ -12,15 +12,16 @@ app.get('/',function(req,res){
 })
 
 app.post('/maillist', function (req, res) {
-
+    console.log(req.body)
     //if mdp is correct
-    if(req.body.mdp == process.env.MDPINS ? process.env.MDPINS : "osef"){
+    if(req.body.mdp == (process.env.MDPINS ? process.env.MDPINS : "osef")){
         res.sendFile("maillist.txt", { root: __dirname })
+    }else{
+        res.sendStatus(403)
     }
 })
 
 app.post('/new', function (req, res) {
-        console.log(req.body)
         fs.appendFile("maillist.txt",req.body.mail + "\r\n", (err)=> {
             if (err) res.send(err)
             else  res.sendStatus(200)
